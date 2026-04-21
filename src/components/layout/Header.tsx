@@ -229,8 +229,7 @@ function fanX(index: number, total: number) {
 // ─── Header ───────────────────────────────────────────────────────────────────
 
 export default function Header() {
-  const raw = usePathname()
-  const pathname = raw.length > 1 ? raw.replace(/\/$/, '') : raw
+  const pathname = usePathname()
   const breadcrumb = getBreadcrumb(pathname)
   const pills = getPills(pathname, breadcrumb)
   const stateKey = pathname.startsWith('/work/') ? 'work' : (breadcrumb ? 'sub' : 'home')
