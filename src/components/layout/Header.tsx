@@ -228,18 +228,8 @@ function fanX(index: number, total: number) {
 
 // ─── Header ───────────────────────────────────────────────────────────────────
 
-function normalizePath(p: string) {
-  return p.endsWith('/') && p.length > 1 ? p.slice(0, -1) : p
-}
-
 export default function Header() {
-  const routerPathname = usePathname()
-  const [pathname, setPathname] = useState(normalizePath(routerPathname))
-
-  useEffect(() => {
-    setPathname(normalizePath(window.location.pathname))
-  }, [routerPathname])
-
+  const pathname = usePathname()
   const breadcrumb = getBreadcrumb(pathname)
   const pills = getPills(pathname, breadcrumb)
   const stateKey = pathname.startsWith('/work/') ? 'work' : (breadcrumb ? 'sub' : 'home')
