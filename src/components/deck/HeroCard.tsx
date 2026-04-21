@@ -10,7 +10,7 @@ function rand() {
 }
 
 function useAutoScramble(text: string) {
-  const [display, setDisplay] = useState(() => text.split('').map(() => rand()).join(''))
+  const [display, setDisplay] = useState(text)
   const raf = useRef<number | undefined>(undefined)
 
   useEffect(() => {

@@ -234,11 +234,7 @@ function normalizePath(p: string) {
 
 export default function Header() {
   const routerPathname = usePathname()
-  const [pathname, setPathname] = useState(normalizePath(routerPathname))
-
-  useEffect(() => {
-    setPathname(normalizePath(window.location.pathname))
-  }, [routerPathname])
+  const pathname = normalizePath(routerPathname)
 
   const breadcrumb = getBreadcrumb(pathname)
   const pills = getPills(pathname, breadcrumb)
@@ -274,18 +270,25 @@ export default function Header() {
               {pill.kind === 'work' && <WorkPill label={pill.label} />}
 
               {(pill.kind === 'nav' || pill.kind === 'back') && (
-                <Link
-                  href={pill.href!}
-                  style={{ ...PILL, color: pill.color, gap: '6px' }}
-                  {...(pill.href?.endsWith('.pdf') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                >
-                  {pill.back && (
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ flexShrink: 0 }}>
-                      <path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
-                  {pill.label}
-                </Link>
+                pill.href?.endsWith('.pdf') ? (
+                  <a
+                    href={pill.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ ...PILL, color: pill.color, gap: '6px' }}
+                  >
+                    {pill.label}
+                  </a>
+                ) : (
+                  <Link href={pill.href!} style={{ ...PILL, color: pill.color, gap: '6px' }}>
+                    {pill.back && (
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ flexShrink: 0 }}>
+                        <path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                    {pill.label}
+                  </Link>
+                )
               )}
 
               {pill.kind === 'page' && (
