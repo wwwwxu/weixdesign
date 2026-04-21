@@ -228,6 +228,10 @@ function fanX(index: number, total: number) {
 
 // ─── Header ───────────────────────────────────────────────────────────────────
 
+function normalizePath(p: string) {
+  return p.endsWith('/') && p.length > 1 ? p.slice(0, -1) : p
+}
+
 export default function Header() {
   const routerPathname = usePathname()
   const pathname = normalizePath(routerPathname)
