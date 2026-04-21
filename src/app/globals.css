@@ -1,26 +1,137 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
+@theme {
+  --color-bg:      #F8F8F8;
+  --color-surface: #FFFFFF;
+  --color-ink:     #0F1117;
+  --color-muted:   #6B7280;
+  --color-subtle:  #9CA3AF;
+  --color-accent:  #C8D97A;
+  --color-border:  #E2DDD5;
+  --color-tag-bg:  #E8E4DC;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── Work page hero ─────────────────────────────────────────────────────── */
+.work-hero {
+  padding: 72px 80px 64px;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (max-width: 639px) {
+  .work-hero {
+    padding: 72px 20px 64px;
   }
 }
 
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #F8F8F8;
+  color: var(--color-ink);
+  font-family: var(--font-geist, "Geist"), ui-sans-serif, system-ui, sans-serif;
+  overflow: hidden;
+  height: 100dvh;
+  width: 100vw;
+}
+
+::selection {
+  background: #C8D97A;
+  color: #1A1714;
+}
+
+/* ─── Responsive layout helpers ─────────────────────────────────────────── */
+
+/* About page */
+.about-page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 80px 120px;
+}
+.about-top {
+  display: flex;
+  gap: 80px;
+  align-items: flex-start;
+}
+.about-col {
+  flex: 1;
+  min-width: 0;
+  padding-top: 100px;
+}
+.about-col-right {
+  flex: 1;
+  min-width: 0;
+  padding-top: 100px;
+}
+.about-philosophy-grid {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* Case study section layout */
+.cs-section-inner {
+  display: flex;
+  gap: 80px;
+}
+.cs-section-label {
+  width: 180px;
+  flex-shrink: 0;
+}
+
+/* Deck grid (grid view) */
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 916px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Case study responsive row layouts */
+.cs-card-row    { display: flex; gap: 16px; }
+.cs-row-2       { display: flex; gap: 40px; align-items: flex-start; }
+.cs-meta-dl     { display: flex; flex-wrap: wrap; gap: 24px 48px; }
+.cs-video-pair  { display: flex; gap: 12px; align-items: flex-start; }
+.cs-grid-3      { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.cs-grid-2      { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.cs-persona-row { display: flex; }
+.cs-stage-flow  { display: flex; }
+
+@media (max-width: 768px) {
+  .about-page { padding: 0 20px 80px; }
+  .about-top { flex-direction: column; gap: 0; }
+  .about-col { padding-top: 72px; }
+  .about-col-right { padding-top: 24px; }
+  .about-philosophy-grid { flex-wrap: wrap; }
+  .about-philosophy-grid > * { flex: 0 0 calc(50% - 8px) !important; min-width: 0; }
+
+  .cs-section-inner { flex-direction: column; gap: 12px; }
+  .cs-section-label { width: auto !important; }
+
+  /* Work page section padding */
+  .cs-section { padding: 32px 20px !important; }
+
+  .deck-grid { grid-template-columns: 1fr; padding: 0 16px; max-width: 480px; }
+
+  /* Case study stacking */
+  .cs-card-row    { flex-direction: column; }
+  .cs-row-2       { flex-direction: column; gap: 24px; }
+  .cs-video-pair  { flex-direction: column; }
+  .cs-grid-3      { grid-template-columns: 1fr; }
+  .cs-grid-2      { grid-template-columns: 1fr; }
+  .cs-persona-row { flex-direction: column; }
+  .cs-stage-flow  { flex-direction: column; }
+  .cs-stage-flow > div { border-right: none !important; }
+  .cs-stage-flow > div:not(:first-child) { border-top: 1px solid var(--color-border); }
+}
+
+@media (max-width: 480px) {
+  .about-philosophy-grid > * { flex: 0 0 100% !important; }
 }
